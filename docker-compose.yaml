@@ -1,0 +1,8 @@
+version: '3'
+services:
+  build-booklah:
+    build:
+      context: .
+      dockerfile: DockerfileJivaka
+    image: jivakatei/booklah-jiv-docker-img:latest
+    container_name: booklah-docker-container
