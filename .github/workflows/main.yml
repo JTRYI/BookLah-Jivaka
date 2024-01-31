@@ -1,4 +1,4 @@
-name: Automated Test, Build and Deploy for BookLah
+name: Automated Test, Build, Terraform Apply and Deploy for BookLah
 on:
   push:
     branches:
@@ -43,9 +43,25 @@ jobs:
       - name: Push Docker image to Docker Hub
         run: docker-compose push
 
-  deploy:
+  terraform:
     runs-on: ubuntu-latest
     needs: build
+    steps:
+      - name: Checkout code from GitHub Repo
+        uses: actions/checkout@v3
+
+      - name: Initialize Terraform
+        run: cd bl-terraform && terraform init
+
+      - name: Plan Terraform changes
+        run: cd bl-terraform && terraform plan
+
+      - name: Apply Terraform changes
+        run: cd bl-terraform && terraform apply -auto-approve
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build, terraform]
     steps:
       - name: Checkout code from GitHub Repo
         uses: actions/checkout@v3
