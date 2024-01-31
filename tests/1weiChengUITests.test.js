@@ -5,9 +5,15 @@ const fs = require('fs').promises;
 
 const { expect } = require('chai');
 const chrome = require('selenium-webdriver/chrome');
+
 const chromeOptions = new chrome.Options();
 chromeOptions.addArguments('--headless');
-const driver = new Builder().forBrowser('chrome').setChromeOptions(chromeOptions).build();
+
+const driver = new Builder()
+    .forBrowser('chrome')
+    .setChromeOptions(chromeOptions)
+    .build();
+    
 var server;
 counter = 0
 // '/instrumented'+
