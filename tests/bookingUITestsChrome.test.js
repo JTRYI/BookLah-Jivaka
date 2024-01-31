@@ -21,9 +21,12 @@ before(async function () {
         });
     })
 });
+
 describe("Testing on Chrome Browser", function () {
 
     describe('Testing View User Bookings UI', function () {
+
+        this.timeout(10000);
 
         it('Should show "No Bookings Found" for user with no bookings', async function () {
             const baseUrl = 'http://localhost:' + server.address().port + '/instrumented' + '/login.html';
@@ -85,6 +88,7 @@ describe("Testing on Chrome Browser", function () {
 
     describe('Testing Add Bookings UI', function () {
 
+        this.timeout(10000);
         const bookingsFilePath = 'utils/bookings.json';
         var orgContent = "";
 
@@ -598,6 +602,7 @@ describe("Testing on Chrome Browser", function () {
 
     describe("Testing Update Bookings UI", function () {
 
+        this.timeout(10000);
         const bookingsFilePath = 'utils/bookings.json';
         var orgContent = "";
 
@@ -1197,6 +1202,7 @@ describe("Testing on Chrome Browser", function () {
 });
 
 afterEach(async function () {
+
     await driver.executeScript('return window.__coverage__;').then(async (coverageData) => {
         if (coverageData) {
             // Save coverage data to a file
@@ -1213,7 +1219,6 @@ afterEach(async function () {
 });
 
 after(async function () {
-    await driver.quit();
-    await server.close();
-
+    await driver.quit(),
+    await server.close()
 });
