@@ -22,6 +22,7 @@ before(async function () {
 describe('Testing Home UI', function () {
     this.timeout(100000);
     it('Should have the correct title', async function () {
+        this.timeout(100000);
         const baseUrl = 'http://localhost:' + server.address().port + '/instrumented' + '/index.html';
         this.timeout(100000); // Set timeout as 10 seconds
         await driver.get(baseUrl);
