@@ -1202,23 +1202,29 @@ describe("Testing on Chrome Browser", function () {
 });
 
 afterEach(async function () {
-
-    await driver.executeScript('return window.__coverage__;').then(async (coverageData) => {
+    try {
+        const coverageData = await driver.executeScript('return window.__coverage__;');
         if (coverageData) {
             // Save coverage data to a file
-            await fs.writeFile('coverage-frontend/coverageChrome' + counter++ + '.json',
-                JSON.stringify(coverageData), (err) => {
-                    if (err) {
-                        console.error('Error writing coverage data:', err);
-                    } else {
-                        console.log('Coverage data written to coverage.json');
-                    }
-                });
+            await fs.writeFile('coverage-frontend/coverageChrome' + counter++ + '.json', JSON.stringify(coverageData));
+            console.log('Coverage data written to coverage.json');
         }
-    });
+    } catch (err) {
+        console.error('Error executing script:', err);
+        throw err; // Rethrow the error to indicate failure
+    }
 });
 
 after(async function () {
-    await driver.quit(),
-    await server.close()
+    try {
+        // Quit the WebDriver
+        await driver.quit();
+        // Close the server
+        await server.close();
+    } catch (err) {
+        console.error('Error during cleanup:', err);
+        throw err; // Rethrow the error to indicate failure
+    }
 });
+
+
