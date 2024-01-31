@@ -1,5 +1,6 @@
 name: Automated Test, Build, Terraform Apply and Deploy for BookLah
 on:
+  workflow_dispatch:
   push:
     branches:
       - main # Workflow will be triggered whenever there is a push in main branch
