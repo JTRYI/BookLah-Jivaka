@@ -14,6 +14,6 @@ spec: # defines the desired state of the Deployment.
     spec: # specifies the container(s) to run
       containers:
       - name: booklah-docker-container
-        image: jivakatei/booklah-jiv-docker-img:latest
+        image: jivakatei/booklah-jiv-docker-img:v4
         ports:
         - containerPort: 5050 # specifies the port that the application listens on
