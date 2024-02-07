@@ -89,6 +89,6 @@ jobs:
         run: |
           kubectl apply -f bl-deployment.yaml
           kubectl apply -f bl-service.yaml
-          kubectl rollout restart deployment/bl-deployment
+          kubectl rollout history deployment/bl-deployment
           kubectl get pods
           kubectl get services
