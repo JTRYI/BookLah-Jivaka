@@ -84,6 +84,9 @@ jobs:
           cluster-name: dvopsAKSCluster
           resource-group: dvopsResourceGroup
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Get AKS credentials
+        run: az aks get-credentials --resource-group dvopsResourceGroup --name dvopsAKSCluster --overwrite-existing
           
       - name: Deploy to AKS
         run: |
