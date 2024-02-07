@@ -62,9 +62,6 @@ jobs:
       - name: Plan Terraform changes
         run: cd bl-terraform && terraform plan
 
-      - name: Destroy existing Terraform resources
-        run: cd bl-terraform && terraform destroy -auto-approve
-
       - name: Apply Terraform changes
         run: cd bl-terraform && terraform apply -auto-approve
 
@@ -92,6 +89,6 @@ jobs:
         run: |
           kubectl apply -f bl-deployment.yaml
           kubectl apply -f bl-service.yaml
-          kubectl rollout history deployment/bl-deployment
+          kubectl rollout restart deployment/bl-deployment
           kubectl get pods
           kubectl get services
