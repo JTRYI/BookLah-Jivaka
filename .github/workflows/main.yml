@@ -62,6 +62,9 @@ jobs:
       - name: Plan Terraform changes
         run: cd bl-terraform && terraform plan
 
+      - name: Destroy existing Terraform resources
+        run: cd bl-terraform && terraform destroy -auto-approve
+
       - name: Apply Terraform changes
         run: cd bl-terraform && terraform apply -auto-approve
 
@@ -77,20 +80,13 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           
-      # - name: Set up Azure Kubernetes CLI
-      #   uses: azure/aks-set-context@v1
-      #   with:
-      #     creds: ${{ secrets.AZURE_CREDENTIALS }}
-      #     cluster-name: dvopsAKSCluster
-      #     resource-group: dvopsResourceGroup
-      #     subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
-      - name: Get AKS credentials
-        run: az aks get-credentials --resource-group dvopsResourceGroup --name dvopsAKSCluster --overwrite-existing
-
-       # Add AKS deployment steps
-      - name: Set up Kubectl
-        uses: azure/setup-kubectl@v1
+      - name: Set up Azure Kubernetes CLI
+        uses: azure/aks-set-context@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          cluster-name: dvopsAKSCluster
+          resource-group: dvopsResourceGroup
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           
       - name: Deploy to AKS
         run: |
