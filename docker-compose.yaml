@@ -4,5 +4,5 @@ services:
     build:
       context: .
       dockerfile: DockerfileJivaka
-    image: jivakatei/booklah-jiv-docker-img:v7
+    image: jivakatei/booklah-jiv-docker-img:v8
     container_name: booklah-docker-container
